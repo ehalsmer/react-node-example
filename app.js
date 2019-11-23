@@ -10,11 +10,11 @@ const socketIO = require('socket.io')
 // const usersRouter = require('./routes/users');
 
 const PORT = process.env.PORT || 3000;
-// const INDEX = path.join(__dirname, 'build/index.html')
+const INDEX = path.join(__dirname, 'build', 'index.html')
 
-const app = express();
-app.use(express.static(path.join(__dirname, 'build')));
-app.use((req, res) => res.sendFile(path.join(__dirname, 'build', 'index.html')))
+const app = express()
+  // .use(express.static(path.join(__dirname, 'build')))
+  .use(express.static(path.join(__dirname, 'build')), (req, res) => res.sendFile(INDEX))
   .listen(PORT, () => console.log(`listening on ${PORT}`))
 // const http = require('http').createServer(app);
 // const io = require('socket.io')(http);
