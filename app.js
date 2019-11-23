@@ -11,6 +11,8 @@ var usersRouter = require('./routes/users');
 const port = process.env.port || 3000;
 
 var app = express();
+var http = require('http').createServer(app);
+var io = require('socket.io')(http);
 
 
 app.use(logger('dev'));
@@ -27,7 +29,7 @@ app.use((req, res) => {
 })
 
 // websockets
-const io = socketIO(app);
+// const io = socketIO(app);
 io.on('connection', (socket)=>{
   console.log('A user has connected');
   socket.on('chat message', (message)=>{
