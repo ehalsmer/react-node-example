@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-app.use(express.static(path.join(__dirname, 'build')));
+router.use(express.static(path.join(__dirname, 'build')));
 
 
-app.get('/*', (req, res) => {
+router.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 })
 /* GET home page. */
