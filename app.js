@@ -7,6 +7,8 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+const port = process.env.port || 3000;
+
 var app = express();
 
 // view engine setup
@@ -22,8 +24,23 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'build')));
 
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'build', 'index.html'))
+  .listen(port, ()=>console.log(`Server listening on port ${port}`));
 })
+
+// websockets
+const io = socketIO(app);
+io.on('connection', (socket)=>{
+  console.log('A user has connected');
+  socket.on('chat message', (message)=>{
+    console.log('Server received message: ', message)
+    io.emit('chat message', message);
+  })
+  socket.on('disconnect', () => {
+    console.log('Client disconnected')
+  });
+})
+
 
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
