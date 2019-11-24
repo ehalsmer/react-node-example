@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const express = require('express');
 const path = require('path');
 const socketIO = require('socket.io')
+const cors = require('cors')
 
 // const indexRouter = require('./routes/index');
 // const usersRouter = require('./routes/users');
@@ -14,7 +15,7 @@ const INDEX = path.join(__dirname, 'build', 'index.html')
 
 const app = express()
   // .use(express.static(path.join(__dirname, 'build')))
-  .use(express.static(path.join(__dirname, 'build')), (req, res) => res.sendFile(INDEX))
+  .use(cors(), express.static(path.join(__dirname, 'build')), (req, res) => res.sendFile(INDEX))
   .listen(PORT, () => console.log(`listening on ${PORT}`))
 // const http = require('http').createServer(app);
 // const io = require('socket.io')(http);
