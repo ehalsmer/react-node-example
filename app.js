@@ -22,7 +22,6 @@ const app = express()
 const io = socketIO(app)
 
 
-
 io.on('connection', (socket)=>{
   console.log('A user has connected');
   socket.on('chat message', (message)=>{
